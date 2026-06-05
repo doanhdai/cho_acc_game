@@ -103,12 +103,7 @@ export default function Navbar() {
       {}
       {menuOpen && (
         <div className="mobile-menu">
-          <Link to="/" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px' }}>
-            <img src={import.meta.env.VITE_LOGO_URL || "/logo_lienquan.png"} alt="Logo" style={{ width: 32, height: 32, objectFit: 'contain' }} />
-            <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-primary)' }}>
-              {import.meta.env.VITE_SITE_NAME || "Shop Acc Game"}
-            </div>
-          </Link>
+
           {navLinks.map(link => (
             <Link key={link.to} to={link.to} className="mobile-link" onClick={() => setMenuOpen(false)}>
               {link.label}
