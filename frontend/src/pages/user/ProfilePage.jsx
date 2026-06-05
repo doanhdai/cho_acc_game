@@ -11,7 +11,7 @@ import {
 import { GiDiamondHard } from 'react-icons/gi';
 
 export default function ProfilePage() {
-  const { user, setUser } = useAuth();
+  const { user, updateUser } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('info');
   const [loading, setLoading] = useState(false);
@@ -69,7 +69,7 @@ export default function ProfilePage() {
         const updatedForm = { ...form, avatar: newAvatarUrl };
         const profileRes = await userAPI.updateProfile(updatedForm);
         if (profileRes.data.success) {
-          setUser(profileRes.data.user);
+          updateUser(profileRes.data.user);
           toast.success('Cập nhật ảnh đại diện thành công!', { id: toastId });
         } else {
           setForm(prev => ({ ...prev, avatar: originalAvatar }));
@@ -93,7 +93,7 @@ export default function ProfilePage() {
     try {
       const res = await userAPI.updateProfile(form);
       if (res.data.success) {
-        setUser(res.data.user);
+        updateUser(res.data.user);
         toast.success('Cập nhật thông tin thành công!');
       }
     } catch (err) {
