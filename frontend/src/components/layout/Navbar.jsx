@@ -168,7 +168,15 @@ export default function Navbar() {
           .hamburger { display: flex; }
           .mobile-menu { display: flex; }
         }
-        @media (max-width: 640px) { .auth-buttons { display: none; } }
+        @media (max-width: 640px) {
+          .auth-buttons { display: none; }
+          .logo-text { font-size: 16px; }
+        }
+        @media (max-width: 480px) {
+          .logo-text { font-size: 14px; }
+          .nav-logo img { width: 32px !important; height: 32px !important; }
+          .nav-inner { gap: 12px; }
+        }
       `}</style>
     </nav>
   );
