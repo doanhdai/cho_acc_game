@@ -159,10 +159,7 @@ export default function ProfilePage() {
                 </label>
               </div>
 
-              <h3 style={{ fontSize: 18, fontWeight: 800, margin: '0 0 6px 0', color: 'var(--text-primary)', wordBreak: 'break-all' }}>{user.username}</h3>
-              <span className={`role-badge role-${user.role}`} style={{ display: 'inline-block', marginBottom: 12 }}>
-                {user.role === 'admin' ? '🔥 Quản Trị Viên' : '⭐ Thành Viên'}
-              </span>
+              <h3 style={{ fontSize: 18, fontWeight: 800, margin: '0 0 12px 0', color: 'var(--text-primary)', wordBreak: 'break-all' }}>{user.username}</h3>
               <p style={{ fontSize: 12, color: 'var(--text-muted)', margin: 0, wordBreak: 'break-all' }}>
                 {user.email || 'Chưa cập nhật email'}
               </p>
