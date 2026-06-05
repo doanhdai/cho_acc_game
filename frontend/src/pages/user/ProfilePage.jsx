@@ -278,7 +278,7 @@ export default function ProfilePage() {
                       </div>
                     </div>
 
-                    <div className="responsive-grid" style={{ marginBottom: 24 }}>
+                    <div style={{ marginBottom: 24 }}>
                       <div className="form-group">
                         <label className="profile-label">Số điện thoại Zalo liên hệ</label>
                         <div className="input-with-icon-wrapper">
@@ -288,19 +288,6 @@ export default function ProfilePage() {
                             value={form.phone_zalo} 
                             onChange={e => setForm({...form, phone_zalo: e.target.value})} 
                             placeholder="Ví dụ: 0901234567"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="form-group">
-                        <label className="profile-label">Ảnh đại diện (URL)</label>
-                        <div className="input-with-icon-wrapper">
-                          <FiImage className="input-icon" />
-                          <input 
-                            className="profile-input" 
-                            value={form.avatar} 
-                            onChange={e => setForm({...form, avatar: e.target.value})} 
-                            placeholder="Đường dẫn ảnh trực tuyến"
                           />
                         </div>
                       </div>
