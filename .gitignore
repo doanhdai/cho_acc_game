@@ -1,0 +1,38 @@
+# Database
+mysql_data/
+mysql.sock.lock
+mvn-repo/
+
+# Node / Frontend
+**/node_modules/
+**/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Java / Maven
+**/target/
+.mvn/
+*.jar
+*.war
+*.ear
+*.class
+
+# IDEs
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.local
