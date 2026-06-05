@@ -248,7 +248,7 @@ export default function ProfilePage() {
                   </p>
 
                   <form onSubmit={handleProfileSubmit}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 20 }}>
+                    <div className="responsive-grid" style={{ marginBottom: 20 }}>
                       <div className="form-group">
                         <label className="profile-label">Họ và Tên</label>
                         <div className="input-with-icon-wrapper">
@@ -278,7 +278,7 @@ export default function ProfilePage() {
                       </div>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
+                    <div className="responsive-grid" style={{ marginBottom: 24 }}>
                       <div className="form-group">
                         <label className="profile-label">Số điện thoại Zalo liên hệ</label>
                         <div className="input-with-icon-wrapper">
@@ -396,7 +396,7 @@ export default function ProfilePage() {
                     Quản lý số dư, nạp thẻ hoặc chuyển khoản ngân hàng tự động.
                   </p>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 30 }}>
+                  <div className="responsive-grid" style={{ marginBottom: 30 }}>
                     <div style={{ border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: 20, background: 'var(--bg-dark)' }}>
                       <div style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', marginBottom: 6 }}>Ví của tôi</div>
                       <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--gold)' }}>{formatMoney(user.balance || 0)}</div>
@@ -616,6 +616,12 @@ export default function ProfilePage() {
           box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
+        .responsive-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+        }
+
         @media (max-width: 768px) {
           .profile-workspace {
             grid-template-columns: 1fr;
@@ -624,6 +630,10 @@ export default function ProfilePage() {
           .profile-stats-grid {
             grid-template-columns: 1fr;
             gap: 12px;
+          }
+          .responsive-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
           }
         }
       `}</style>
