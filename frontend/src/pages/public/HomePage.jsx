@@ -315,7 +315,7 @@ export default function HomePage() {
             )}
 
             {/* Filter buttons */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
+            <div className="filter-actions-container">
               <button 
                 onClick={handleReset} 
                 style={{ 
@@ -424,6 +424,19 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <style>{`
+        .filter-actions-container {
+          display: flex;
+          justify-content: flex-end;
+          gap: 12px;
+        }
+        @media (max-width: 768px) {
+          .filter-actions-container {
+            justify-content: center;
+          }
+        }
+      `}</style>
     </div>
   );
 }
