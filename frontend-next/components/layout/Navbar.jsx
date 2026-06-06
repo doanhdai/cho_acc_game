@@ -163,6 +163,7 @@ export default function Navbar() {
         .mobile-link:hover { background: var(--bg-card2); color: var(--text-primary); }
         @media (max-width: 900px) {
           .nav-links { display: none; }
+          .nav-right { margin-left: auto; }
           .hamburger { display: flex; }
           .mobile-menu { display: flex; }
         }
