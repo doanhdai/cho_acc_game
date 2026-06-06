@@ -74,6 +74,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <!-- PayOS SDK for VietQR Integration -->
+        <dependency>
+            <groupId>vn.payos</groupId>
+            <artifactId>payos-java</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

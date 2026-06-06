@@ -65,6 +65,27 @@ public class DatabaseInitializer implements CommandLineRunner {
                 log.warn("Could not add FULLTEXT index to accounts table: {}", e.getMessage());
             }
 
+            // Add BTREE performance indexes
+            try {
+                String[] indexQueries = {
+                    "ALTER TABLE accounts ADD INDEX idx_accounts_status_created (status, created_at)",
+                    "ALTER TABLE accounts ADD INDEX idx_accounts_price (price)",
+                    "ALTER TABLE accounts ADD INDEX idx_accounts_rank (rank_level)",
+                    "ALTER TABLE transactions ADD INDEX idx_transactions_created (created_at)"
+                };
+                
+                for (String query : indexQueries) {
+                    try {
+                        jdbcTemplate.execute(query);
+                    } catch (Exception e) {
+                        // Index might already exist, safe to ignore
+                    }
+                }
+                log.info("Successfully checked/added BTREE performance indexes.");
+            } catch (Exception e) {
+                log.warn("Could not add performance indexes: {}", e.getMessage());
+            }
+
             log.info("System settings initialized successfully.");
         } catch (Exception e) {
             log.error("Failed to initialize system settings table", e);

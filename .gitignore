@@ -36,3 +36,6 @@ Thumbs.db
 # Env files
 .env
 .env.local
+frontend-next/.next/
+frontend-next/out/
+frontend-next/.swc/

@@ -28,7 +28,7 @@ public class RateLimitingFilter extends OncePerRequestFilter {
         
         String path = request.getRequestURI();
         
-        if (!path.startsWith("/api/")) {
+        if (!path.startsWith("/api/") || path.startsWith("/api/admin/")) {
             filterChain.doFilter(request, response);
             return;
         }

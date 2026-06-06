@@ -40,7 +40,7 @@ public class SecurityConfig {
                 // Auth public routes
                 .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
                 // Wallet callback public webhook
-                .requestMatchers(HttpMethod.POST, "/api/wallet/callback").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/wallet/callback", "/api/payment/payos-webhook").permitAll()
                 // Accounts public routes
                 .requestMatchers(HttpMethod.GET, "/api/accounts", "/api/accounts/categories", "/api/accounts/skins", "/api/accounts/{id:\\d+}", "/api/accounts/post-fee-percent").permitAll()
                 // News public routes

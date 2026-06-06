@@ -19,13 +19,19 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
         StringBuilder sql = new StringBuilder();
         StringBuilder countSql = new StringBuilder();
 
-        sql.append("SELECT a.* FROM accounts a ");
-        sql.append("JOIN categories c ON a.category_id = c.id ");
+        boolean hasSkins = skinIds != null && !skinIds.isEmpty();
 
-        countSql.append("SELECT COUNT(DISTINCT a.id) FROM accounts a ");
+        if (hasSkins) {
+            sql.append("SELECT DISTINCT a.* FROM accounts a ");
+            countSql.append("SELECT COUNT(DISTINCT a.id) FROM accounts a ");
+        } else {
+            sql.append("SELECT a.* FROM accounts a ");
+            countSql.append("SELECT COUNT(DISTINCT a.id) FROM accounts a ");
+        }
+
+        sql.append("JOIN categories c ON a.category_id = c.id ");
         countSql.append("JOIN categories c ON a.category_id = c.id ");
 
-        boolean hasSkins = skinIds != null && !skinIds.isEmpty();
         if (hasSkins) {
             sql.append("JOIN account_skins ask ON a.id = ask.account_id ");
             countSql.append("JOIN account_skins ask ON a.id = ask.account_id ");
@@ -42,12 +48,10 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
         }
         if (search != null && !search.trim().isEmpty()) {
             whereClauses.add("MATCH(a.title, a.description) AGAINST(:search IN BOOLEAN MODE)");
-            
             String[] words = search.trim().split("\\s+");
             StringBuilder ftQuery = new StringBuilder();
             for (String w : words) {
                 if (!w.isEmpty()) {
-                    // Filter out non-alphanumeric chars or characters that MySQL BOOLEAN mode treats as operators
                     String cleanWord = w.replaceAll("[+\\-*<>~()\"@]", "");
                     if (!cleanWord.isEmpty()) {
                         ftQuery.append("+").append(cleanWord).append("* ");
@@ -79,11 +83,6 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
             countSql.append(whereStr);
         }
 
-        if (hasSkins) {
-            sql.append(" GROUP BY a.id HAVING COUNT(DISTINCT ask.skin_id) = :skinIdsLength");
-            params.put("skinIdsLength", skinIds.size());
-        }
-
         // Sorting
         String validSort = "created_at";
         if ("price".equalsIgnoreCase(sort)) validSort = "price";
@@ -111,20 +110,7 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
         query.setMaxResults(limit);
 
         List<Account> accounts = query.getResultList();
-
-        long totalCount = 0;
-        if (hasSkins) {
-            // If grouped by, count query needs to count the number of groups returned.
-            // Using a subquery for accuracy.
-            String subquerySql = "SELECT COUNT(*) FROM (" + sql.toString() + ") as group_subquery";
-            Query subQuery = entityManager.createNativeQuery(subquerySql);
-            for (Map.Entry<String, Object> entry : params.entrySet()) {
-                subQuery.setParameter(entry.getKey(), entry.getValue());
-            }
-            totalCount = ((Number) subQuery.getSingleResult()).longValue();
-        } else {
-            totalCount = ((Number) countQuery.getSingleResult()).longValue();
-        }
+        long totalCount = ((Number) countQuery.getSingleResult()).longValue();
 
         return new SearchResult(accounts, totalCount);
     }

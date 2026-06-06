@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import vn.payos.PayOS;
+import vn.payos.type.PaymentData;
+import vn.payos.type.CheckoutResponseData;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -26,6 +29,7 @@ public class UserController {
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PayOS payOS;
 
     @Data
     public static class CreateDepositRequest {
@@ -74,6 +78,47 @@ public class UserController {
                 .build();
 
         deposit = depositRequestRepository.save(deposit);
+
+        if ("vietqr".equalsIgnoreCase(req.getMethod())) {
+            try {
+                long orderCode = deposit.getId();
+                int amountVal = req.getAmount().intValue();
+                // Description can only contain alphanumeric and space, max 25 chars.
+                String description = "Nap " + amountVal + "d u" + user.getId();
+                if (description.length() > 25) {
+                    description = description.substring(0, 25);
+                }
+
+                String returnUrl = System.getProperty("PAYOS_RETURN_URL");
+                if (returnUrl == null || returnUrl.isEmpty()) {
+                    returnUrl = "http://localhost:5173/profile?tab=wallet&deposit_status=success";
+                }
+                String cancelUrl = System.getProperty("PAYOS_CANCEL_URL");
+                if (cancelUrl == null || cancelUrl.isEmpty()) {
+                    cancelUrl = "http://localhost:5173/profile?tab=wallet&deposit_status=cancelled";
+                }
+
+                PaymentData paymentData = PaymentData.builder()
+                        .orderCode(orderCode)
+                        .amount(amountVal)
+                        .description(description)
+                        .returnUrl(returnUrl)
+                        .cancelUrl(cancelUrl)
+                        .build();
+
+                CheckoutResponseData payOSRes = payOS.createPaymentLink(paymentData);
+
+                response.put("success", true);
+                response.put("checkoutUrl", payOSRes.getCheckoutUrl());
+                response.put("id", deposit.getId());
+                return ResponseEntity.ok(response);
+            } catch (Exception e) {
+                depositRequestRepository.delete(deposit);
+                response.put("success", false);
+                response.put("message", "Lỗi tạo link thanh toán PayOS: " + e.getMessage());
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            }
+        }
 
         response.put("success", true);
         response.put("message", "Yêu cầu nạp tiền đã được gửi. Vui lòng chờ admin xét duyệt.");
