@@ -6,16 +6,31 @@ import ClientHeaderFooter from '@/components/layout/ClientHeaderFooter';
 const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Shop Acc Game';
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'),
   title: {
     default: `${SITE_NAME} - Sàn Giao Dịch Acc Game Uy Tín`,
     template: `%s | ${SITE_NAME}`,
   },
   description: 'Sàn giao dịch tài khoản game uy tín số 1 Việt Nam. Mua bán acc Liên Quân, LOL, PUBG và nhiều game khác. Cam kết chất lượng, hỗ trợ 24/7.',
-  keywords: ['mua bán acc game', 'shop acc liên quân', 'acc game giá rẻ', 'mua acc liên quân'],
+  keywords: ['mua bán acc game', 'shop acc liên quân', 'acc game giá rẻ', 'mua acc liên quân', 'shop acc uy tín'],
+  authors: [{ name: 'Shop Acc Game Admin' }],
+  creator: 'Shop Acc Game',
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
     siteName: SITE_NAME,
+    title: `${SITE_NAME} - Sàn Giao Dịch Acc Game Uy Tín`,
+    description: 'Sàn giao dịch tài khoản game uy tín số 1 Việt Nam. Mua bán acc Liên Quân, LOL, PUBG và nhiều game khác.',
+    images: ['/banner.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_NAME} - Sàn Giao Dịch Acc Game Uy Tín`,
+    description: 'Sàn giao dịch tài khoản game uy tín số 1 Việt Nam.',
+    images: ['/banner.png'],
+  },
+  alternates: {
+    canonical: '/',
   },
 };
 
