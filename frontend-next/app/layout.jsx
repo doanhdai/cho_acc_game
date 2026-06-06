@@ -32,6 +32,9 @@ export const metadata = {
   alternates: {
     canonical: '/',
   },
+  icons: {
+    icon: '/logo_lienquan.png',
+  },
 };
 
 export default function RootLayout({ children }) {
