@@ -699,25 +699,40 @@ export function AdminSkins() {
                     </button>
                   </div>
                 )}
-                <div style={{
-                  border: '2px dashed var(--border)',
-                  borderRadius: 'var(--radius)',
-                  padding: '16px',
-                  textAlign: 'center',
-                  background: 'var(--bg-input)',
-                  cursor: uploadingImage ? 'not-allowed' : 'pointer',
-                  position: 'relative'
-                }}>
+                
+                <div style={{ marginBottom: 12 }}>
+                  <label className="form-label" style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 4, display: 'block' }}>Nhập liên kết ảnh trực tiếp (URL)</label>
                   <input 
-                    type="file" 
-                    onChange={handleSkinImageUpload} 
-                    accept="image/*" 
-                    disabled={uploadingImage}
-                    style={{ position: 'absolute', inset: 0, opacity: 0, cursor: uploadingImage ? 'not-allowed' : 'pointer' }}
+                    className="form-control" 
+                    type="text" 
+                    value={form.image_url} 
+                    onChange={e => setForm({...form, image_url: e.target.value})} 
+                    placeholder="Dán URL hình ảnh từ internet tại đây..." 
                   />
-                  <FiUploadCloud size={24} style={{ color: 'var(--text-muted)', marginBottom: 8 }} />
-                  <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--text-secondary)' }}>
-                    {uploadingImage ? 'Đang tải ảnh lên...' : 'Chọn file từ máy để tải lên'}
+                </div>
+
+                <div>
+                  <label className="form-label" style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 4, display: 'block' }}>Hoặc tải file ảnh lên từ thiết bị</label>
+                  <div style={{
+                    border: '2px dashed var(--border)',
+                    borderRadius: 'var(--radius)',
+                    padding: '16px',
+                    textAlign: 'center',
+                    background: 'var(--bg-input)',
+                    cursor: uploadingImage ? 'not-allowed' : 'pointer',
+                    position: 'relative'
+                  }}>
+                    <input 
+                      type="file" 
+                      onChange={handleSkinImageUpload} 
+                      accept="image/*" 
+                      disabled={uploadingImage}
+                      style={{ position: 'absolute', inset: 0, opacity: 0, cursor: uploadingImage ? 'not-allowed' : 'pointer' }}
+                    />
+                    <FiUploadCloud size={24} style={{ color: 'var(--text-muted)', marginBottom: 8 }} />
+                    <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--text-secondary)' }}>
+                      {uploadingImage ? 'Đang tải ảnh lên...' : 'Chọn file từ máy để tải lên'}
+                    </div>
                   </div>
                 </div>
               </div>
