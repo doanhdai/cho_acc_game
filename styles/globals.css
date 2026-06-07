@@ -406,3 +406,115 @@ tr:hover td { background: rgba(229,57,53,0.04); }
 .admin-portal h2 { font-size: 15px !important; }
 .admin-portal h3 { font-size: 13px !important; }
 .admin-portal p { font-size: 12px !important; }
+
+/* Floating Contact Buttons */
+.floating-contact-container {
+  position: fixed;
+  bottom: 40px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.floating-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: auto;
+  text-decoration: none;
+  background: transparent;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+.icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.floating-btn:hover .icon-img {
+  transform: rotate(8deg);
+}
+
+/* Tooltip style */
+.tooltip-text {
+  position: absolute;
+  right: 68px;
+  background: rgba(26, 26, 46, 0.95);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.floating-btn:hover .tooltip-text {
+  opacity: 1;
+  visibility: visible;
+  right: 64px;
+}
+
+/* Pulse ring animation */
+.pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: btnPulse 2s infinite;
+}
+
+.zalo-btn .pulse-ring {
+  border: 2px solid rgba(0, 104, 255, 0.6);
+}
+
+.telegram-btn .pulse-ring {
+  border: 2px solid rgba(34, 158, 217, 0.6);
+}
+
+@keyframes btnPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .floating-contact-container {
+    bottom: 30px;
+    right: 16px;
+    gap: 12px;
+  }
+  .floating-btn {
+    width: 46px;
+    height: 46px;
+  }
+  .tooltip-text {
+    display: none;
+  }
+}

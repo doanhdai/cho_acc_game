@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import FloatingContact from './FloatingContact';
 
 export default function ClientHeaderFooter({ children }) {
   const pathname = usePathname();
@@ -15,6 +16,7 @@ export default function ClientHeaderFooter({ children }) {
         {children}
       </main>
       {!isAdmin && <Footer />}
+      {!isAdmin && <FloatingContact />}
     </div>
   );
 }

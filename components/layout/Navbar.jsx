@@ -35,8 +35,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="nav-inner container">
         <Link href="/" className="nav-logo">
-          <img src={LOGO_URL} alt="Logo" style={{ width: 40, height: 40, objectFit: 'contain' }} />
-          <span className="logo-text">{SITE_NAME}</span>
+          <img src={LOGO_URL} alt="Logo" style={{ height: 62, width: 'auto', objectFit: 'contain' }} />
         </Link>
 
         <div className="nav-links">
@@ -130,25 +129,25 @@ export default function Navbar() {
       <style dangerouslySetInnerHTML={{ __html: `
         .navbar {
           position: sticky; top: 0; z-index: 100;
-          background: rgba(255,255,255,0.95);
+          background: #111118;
           backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(0,0,0,0.09);
-          box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+          box-shadow: 0 4px 20px rgba(0,0,0,0.25);
         }
         .nav-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
         .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .logo-text { font-size: 20px; font-weight: 800; color: var(--text-primary); }
+        .logo-text { font-size: 20px; font-weight: 800; color: #ffffff; }
         .nav-links { display: flex; gap: 4px; flex: 1; justify-content: flex-end; }
-        .nav-link { padding: 7px 14px; border-radius: var(--radius); font-size: 13px; font-weight: 500; color: var(--text-secondary); transition: all 0.2s; white-space: nowrap; }
-        .nav-link:hover, .nav-link.active { color: var(--primary); background: var(--primary-glow); }
+        .nav-link { padding: 7px 14px; border-radius: var(--radius); font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.75); transition: all 0.2s; white-space: nowrap; }
+        .nav-link:hover, .nav-link.active { color: #ffffff; background: rgba(255,255,255,0.1); }
         .nav-right { display: flex; align-items: center; gap: 12px; }
         .auth-buttons { display: flex; gap: 8px; }
         .user-menu { position: relative; }
-        .user-btn { display: flex; align-items: center; gap: 10px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 14px; cursor: pointer; color: var(--text-primary); transition: all 0.2s; }
-        .user-btn:hover { border-color: var(--primary); box-shadow: 0 2px 12px var(--primary-glow); }
+        .user-btn { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius); padding: 8px 14px; cursor: pointer; color: #ffffff; transition: all 0.2s; }
+        .user-btn:hover { border-color: var(--primary); background: rgba(255,255,255,0.1); }
         .user-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: white; }
         .user-info { text-align: left; }
-        .user-name { display: block; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+        .user-name { display: block; font-size: 13px; font-weight: 600; color: #ffffff; }
         .user-balance { display: block; font-size: 11px; color: var(--gold); }
         .dropdown { position: absolute; top: calc(100% + 8px); right: 0; min-width: 200px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.13); z-index: 200; animation: fadeInUp 0.15s ease; }
         .dropdown::before { content: ''; position: absolute; top: -12px; left: 0; width: 100%; height: 12px; background: transparent; }
@@ -157,10 +156,10 @@ export default function Navbar() {
         .dropdown-item.admin-item { color: var(--primary); }
         .dropdown-item.danger:hover { color: var(--danger); background: rgba(229,57,53,0.08); }
         .dropdown-divider { height: 1px; background: var(--border); margin: 6px 0; }
-        .hamburger { display: none; background: none; border: none; color: var(--text-primary); font-size: 22px; cursor: pointer; }
-        .mobile-menu { display: none; flex-direction: column; border-top: 1px solid var(--border); background: var(--bg-card); padding: 12px; gap: 2px; }
-        .mobile-link { display: block; padding: 12px 16px; border-radius: 4px; font-size: 14px; color: var(--text-secondary); background: none; border: none; cursor: pointer; font-family: inherit; text-decoration: none; transition: all 0.2s; text-align: left; }
-        .mobile-link:hover { background: var(--bg-card2); color: var(--text-primary); }
+        .hamburger { display: none; background: none; border: none; color: #ffffff; font-size: 22px; cursor: pointer; }
+        .mobile-menu { display: none; flex-direction: column; border-top: 1px solid rgba(255,255,255,0.08); background: #111118; padding: 12px; gap: 2px; }
+        .mobile-link { display: block; padding: 12px 16px; border-radius: 4px; font-size: 14px; color: rgba(255,255,255,0.75); background: none; border: none; cursor: pointer; font-family: inherit; text-decoration: none; transition: all 0.2s; text-align: left; }
+        .mobile-link:hover { background: rgba(255,255,255,0.08); color: #ffffff; }
         @media (max-width: 900px) {
           .nav-links { display: none; }
           .nav-right { margin-left: auto; }
@@ -172,8 +171,7 @@ export default function Navbar() {
           .logo-text { font-size: 16px; }
         }
         @media (max-width: 480px) {
-          .logo-text { font-size: 14px; }
-          .nav-logo img { width: 32px !important; height: 32px !important; }
+          .nav-logo img { height: 36px !important; width: auto !important; }
           .nav-inner { gap: 12px; }
         }
       `}} />
