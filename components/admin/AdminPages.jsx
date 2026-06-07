@@ -50,21 +50,17 @@ function AdminSidebar() {
     }}>
       {/* Logo */}
       <div style={{
-        padding: '20px 20px 16px',
-        borderBottom: '1px solid var(--border)'
+        padding: '16px 20px',
+        borderBottom: '1px solid var(--border)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{
-            width: 36, height: 36, borderRadius: 10,
-            background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 18, fontWeight: 900, color: '#fff', flexShrink: 0
-          }}>A</div>
-          <div>
-            <div style={{ fontWeight: 900, fontSize: 15, color: 'var(--text-primary)', letterSpacing: 0.5 }}>AdminPortal</div>
-            <div style={{ fontSize: 10, color: 'var(--text-muted)', fontWeight: 500, marginTop: 1 }}>Bản điều khiển</div>
-          </div>
-        </div>
+        <img 
+          src="/logo_choaccgame.png" 
+          alt="Logo" 
+          style={{ height: 42, width: 'auto', maxWidth: '100%', objectFit: 'contain' }} 
+        />
       </div>
 
       {/* Nav links */}

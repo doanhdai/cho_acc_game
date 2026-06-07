@@ -235,7 +235,7 @@ export default function AccountDetailPage() {
 
                 {/* Price Display */}
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 24 }}>
-                  <span style={{ fontSize: 26, fontWeight: 900, color: '#ff3b30' }}>{formatMoney(account.price)}</span>
+                  <span style={{ fontSize: 26, fontWeight: 600, color: '#ff3b30' }}>{formatMoney(account.price)}</span>
                   {account.original_price > account.price && (
                     <span style={{ textDecoration: 'line-through', color: 'var(--text-muted)', fontSize: 15 }}>
                       {formatMoney(account.original_price)}
@@ -343,31 +343,18 @@ export default function AccountDetailPage() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--success)', marginTop: 2, flexWrap: 'wrap' }}>
                       <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success)', display: 'inline-block' }}></span>
                       <span>Đang hoạt động</span>
-                      <span style={{ color: 'var(--text-muted)' }}>Phản hồi: 100%</span>
                     </div>
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
-                  <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)' }}>12</div>
-                    <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>Đã bán</div>
-                  </div>
-                  <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 2 }}>
-                      5 <span style={{ color: 'var(--gold)' }}>★</span>
-                    </div>
-                    <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>10 đánh giá</div>
-                  </div>
-                  <button
-                    onClick={() => {
-                      toast.success(`Xem trang cá nhân của người bán: ${account.seller_name}`);
-                    }}
+                  <Link
+                    href={`/seller/${account.seller_id}`}
                     className="btn btn-outline btn-sm"
-                    style={{ padding: '6px 12px', fontSize: 11, height: 30, borderRadius: 'var(--radius)' }}
+                    style={{ padding: '6px 12px', fontSize: 11, height: 30, borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   >
                     Xem trang
-                  </button>
+                  </Link>
                 </div>
               </div>
 
