@@ -527,7 +527,7 @@ export default function SellPage() {
                         onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-input)'}
                         onMouseLeave={e => e.currentTarget.style.background = 'none'}
                       >
-                        <img src={skin.image_url || skin.imageUrl} alt="" style={{ width: 36, height: 27, objectFit: 'cover', borderRadius: 3 }} />
+                        <img src={skin.image_url || skin.imageUrl} alt="" style={{ width: 32, height: 32, objectFit: 'cover', borderRadius: 3 }} />
                         <span style={{ fontSize: 13, fontWeight: 600 }}>{skin.champion_name || skin.championName} - {skin.skin_name || skin.skinName}</span>
                       </div>
                     ))}

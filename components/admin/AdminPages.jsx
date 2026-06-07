@@ -632,7 +632,7 @@ export function AdminSkins() {
                     <tr key={skin.id}>
                       <td style={{ color: 'var(--text-muted)', fontSize: 12 }}>#{skin.id}</td>
                       <td>
-                        <img src={skin.image_url} alt={skin.skin_name} style={{ width: 64, height: 48, objectFit: 'cover', borderRadius: 4 }} />
+                        <img src={skin.image_url} alt={skin.skin_name} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 4 }} />
                       </td>
                       <td style={{ fontWeight: 700 }}>{skin.champion_name}</td>
                       <td style={{ fontWeight: 600 }}>{skin.skin_name}</td>
@@ -672,7 +672,7 @@ export function AdminSkins() {
                     <img 
                       src={form.image_url} 
                       alt="Preview" 
-                      style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }} 
+                      style={{ width: 90, height: 90, objectFit: 'cover', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }} 
                     />
                     <button
                       type="button"
