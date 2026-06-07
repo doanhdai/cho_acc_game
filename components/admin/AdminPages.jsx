@@ -521,21 +521,36 @@ export function AdminSkins() {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
+  // Upload trực tiếp lên Cloudinary (Unsigned Upload - không qua backend)
+  const CLOUDINARY_CLOUD_NAME = 'duxjzuspo';
+  const CLOUDINARY_UPLOAD_PRESET = 'tc0qervg';
+
   const handleSkinImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
     setUploadingImage(true);
-    const toastId = toast.loading('Đang tải ảnh skin lên Cloudflare R2...');
+    const toastId = toast.loading('Đang tải ảnh skin lên Cloudinary...');
     try {
-      const res = await accountAPI.uploadImage(file);
-      if (res.data.success) {
-        setForm(prev => ({ ...prev, image_url: res.data.url }));
-        toast.success('Tải ảnh skin thành công!', { id: toastId });
-      } else {
-        toast.error(res.data.message || 'Tải ảnh thất bại', { id: toastId });
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+      formData.append('folder', 'skins');
+
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+        { method: 'POST', body: formData }
+      );
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData?.error?.message || `HTTP ${res.status}`);
       }
+
+      const data = await res.json();
+      setForm(prev => ({ ...prev, image_url: data.secure_url }));
+      toast.success('Tải ảnh skin thành công!', { id: toastId });
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Có lỗi xảy ra khi tải ảnh', { id: toastId });
+      toast.error('Lỗi tải ảnh: ' + (err.message || 'Không thể kết nối Cloudinary'), { id: toastId });
     } finally {
       setUploadingImage(false);
     }

@@ -47,6 +47,7 @@ export default function RootLayout({ children }) {
           </ClientHeaderFooter>
           <Toaster
             position="top-right"
+            containerStyle={{ zIndex: 99999 }}
             toastOptions={{
               style: { background: 'var(--bg-card2)', color: 'var(--text-primary)', border: '1px solid var(--border)' },
               success: { iconTheme: { primary: 'var(--success)', secondary: 'white' } },
