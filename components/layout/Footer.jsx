@@ -17,7 +17,7 @@ export default function Footer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 32, marginBottom: 40 }}>
           <div>
             <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', marginBottom: 12 }}>
-              <img src={LOGO_URL} alt="Logo" style={{ height: 36, width: 'auto', objectFit: 'contain' }} />
+              <img src={LOGO_URL} alt="Logo" style={{ height: 60, width: 'auto', objectFit: 'contain' }} />
             </Link>
             <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.6 }}>
               Sàn giao dịch acc game uy tín số 1 Việt Nam. Cam kết chất lượng, hỗ trợ 24/7.

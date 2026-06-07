@@ -35,7 +35,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="nav-inner container">
         <Link href="/" className="nav-logo">
-          <img src={LOGO_URL} alt="Logo" style={{ height: 62, width: 'auto', objectFit: 'contain' }} />
+          <img src={LOGO_URL} alt="Logo" style={{ height: 72, width: 'auto', objectFit: 'contain' }} />
         </Link>
 
         <div className="nav-links">
