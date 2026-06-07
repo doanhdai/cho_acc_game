@@ -62,11 +62,11 @@ export function LoginPage() {
           <div style={{ textAlign: 'center', fontSize: 14, color: 'var(--text-muted)' }}>
             Chưa có tài khoản? <Link href="/register" style={{ color: 'var(--primary)', fontWeight: 700 }}>Đăng ký ngay</Link>
           </div>
-          <div style={{ marginTop: 16, background: 'var(--bg-input)', borderRadius: 10, padding: '12px 16px', fontSize: 12, border: '1px solid var(--border)' }}>
+          {/* <div style={{ marginTop: 16, background: 'var(--bg-input)', borderRadius: 10, padding: '12px 16px', fontSize: 12, border: '1px solid var(--border)' }}>
             <div style={{ color: 'var(--text-muted)', marginBottom: 6, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6 }}><FiKey /> Demo Accounts</div>
             <div style={{ color: 'var(--text-secondary)' }}>Admin: <code style={{ color: 'var(--primary)' }}>admin / 123456</code></div>
             <div style={{ color: 'var(--text-secondary)' }}>User: <code style={{ color: 'var(--success)' }}>user01 / 123456</code></div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
