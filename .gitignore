@@ -1,26 +1,26 @@
-# Database
-mysql_data/
-mysql.sock.lock
-mvn-repo/
+# Dependencies
+node_modules/
 
-# Node / Frontend
-**/node_modules/
-**/dist/
-frontend/.env
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
+# Next.js build output
+.next/
+out/
 
-# Java / Maven
-**/target/
-.mvn/
-*.jar
-*.war
-*.ear
-*.class
+# Production build cache
+.swc/
 
-# IDEs
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs and editors
 .idea/
 .vscode/
 *.suo
@@ -32,10 +32,3 @@ frontend/.env.production.local
 # OS files
 .DS_Store
 Thumbs.db
-
-# Env files
-.env
-.env.local
-frontend-next/.next/
-frontend-next/out/
-frontend-next/.swc/
