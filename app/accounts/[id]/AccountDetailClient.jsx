@@ -60,7 +60,7 @@ export default function AccountDetailPage() {
   };
 
   return (
-    <div style={{ padding: '40px 0', background: 'var(--bg-dark)' }}>
+    <div className="page-container" style={{ background: 'var(--bg-dark)' }}>
       <div className="container" style={{ maxWidth: 1100 }}>
         {/* Navigation / Back Button */}
         <button onClick={() => router.back()} className="btn btn-outline btn-sm" style={{ marginBottom: 24, gap: 6, borderRadius: 'var(--radius)' }}>

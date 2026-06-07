@@ -44,7 +44,7 @@ export default function HistoryPage() {
   if (loading) return <Spinner />;
 
   return (
-    <div style={{ padding: '40px 0', background: 'var(--bg-body)' }}>
+    <div className="page-container" style={{ background: 'var(--bg-body)' }}>
       <div className="container">
         <h1 className="page-title" style={{ marginBottom: 24, display: 'flex', alignItems: 'center', gap: 12 }}>
           <FiList style={{ color: 'var(--primary)' }} /> Lịch Sử Giao Dịch & Ví Tiền

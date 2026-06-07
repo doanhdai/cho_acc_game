@@ -51,7 +51,7 @@ export default function SellerProfilePage() {
   }
 
   return (
-    <div style={{ padding: '40px 0', background: 'var(--bg-dark)', minHeight: '80vh' }}>
+    <div className="page-container" style={{ background: 'var(--bg-dark)', minHeight: '80vh' }}>
       <div className="container" style={{ maxWidth: 1100 }}>
         {/* Back Button */}
         <button onClick={() => router.back()} className="btn btn-outline btn-sm" style={{ marginBottom: 24, gap: 6, borderRadius: 'var(--radius)' }}>

@@ -159,7 +159,7 @@ function SearchPageContent() {
   const ranks = ['Đồng', 'Bạc', 'Vàng', 'Bạch Kim', 'Kim Cương', 'Tinh Anh', 'Cao Thủ', 'Chiến Tướng', 'Thách Đấu'];
 
   return (
-    <div style={{ padding: '40px 0', background: 'var(--bg-body)' }}>
+    <div className="page-container" style={{ background: 'var(--bg-body)' }}>
       <div className="container">
         <div style={{ marginBottom: 32 }}>
           <h1 className="page-title" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>

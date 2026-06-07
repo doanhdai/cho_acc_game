@@ -314,7 +314,7 @@ export default function SellPage() {
   const hasMissingZalo = user && (!user.phone_zalo || !/^0[0-9]{9}$/.test(user.phone_zalo));
 
   return (
-    <div style={{ padding: '40px 0', background: 'var(--bg-dark)' }}>
+    <div className="page-container" style={{ background: 'var(--bg-dark)' }}>
       <div className="container" style={{ maxWidth: 1100 }}>
         {/* Header Block */}
         <div style={{ marginBottom: 32 }}>
@@ -481,15 +481,15 @@ export default function SellPage() {
             </div>
 
             {/* Section 3: Highlight skins tag */}
-            <div className="card" style={{ padding: 24, borderRadius: 'var(--radius-lg)', overflow: 'visible' }}>
+            <div className="card" style={{ padding: 24, borderRadius: 'var(--radius-lg)', overflow: 'visible', position: 'relative', zIndex: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, borderBottom: '1px solid var(--border)', paddingBottom: 12, marginBottom: 20 }}>
                 <span style={{
                   width: 28, height: 28, borderRadius: '50%', background: 'var(--primary-glow)', color: 'var(--primary)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 14
                 }}>3</span>
-                <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>Trang phục nổi bậtt</h3>
+                <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>Trang phục nổi bật</h3>
               </div>
-              <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: -10, marginBottom: 16 }}>Chọn các skin hot (ví dụ: Lôi Quang Sứ, Thứ Nguyên Vệ Thần...) có trong acc để hiển thị làm bộ lọc tìm kiếm nâng cao.</p>
+              <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: -10, marginBottom: 16 }}>Chọn các skin hot để khách tìm thấy nhanh hơn.</p>
 
               <div style={{ position: 'relative' }}>
                 <input

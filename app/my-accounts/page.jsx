@@ -97,7 +97,7 @@ export default function MyAccountsPage() {
   };
 
   return (
-    <div style={{ padding: '40px 0', background: 'var(--bg-dark)', minHeight: 'calc(100vh - 64px)' }}>
+    <div className="page-container" style={{ background: 'var(--bg-dark)', minHeight: 'calc(100vh - 64px)' }}>
       <div className="container" style={{ maxWidth: 1140 }}>
         
         {/* Top Header Row */}

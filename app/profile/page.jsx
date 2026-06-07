@@ -132,7 +132,7 @@ export default function ProfilePage() {
   if (!user) return <Spinner />;
 
   return (
-    <div style={{ padding: '40px 0', minHeight: 'calc(100vh - 64px)', background: 'var(--bg-dark)' }}>
+    <div className="page-container" style={{ minHeight: 'calc(100vh - 64px)', background: 'var(--bg-dark)' }}>
       <div className="container" >
         
         <div className="profile-workspace">
