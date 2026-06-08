@@ -229,7 +229,7 @@ export function AdminAccounts() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editItem, setEditItem] = useState(null);
-  const [form, setForm] = useState({ category_id: '', title: '', description: '', username: '', password: '', email_acc: '', email_pass: '', server: '', level: '', rank_level: '', champions_count: '', skins_count: '', security_status: 'TRANG_THONG_THIN', price: '', original_price: '', images: [] });
+  const [form, setForm] = useState({ category_id: '', title: '', description: '', username: '', password: '', email_acc: '', email_pass: '', server: '', level: '', rank_level: '', champions_count: '', skins_count: '', security_status: 'TRANG_THONG_THIN', status: 'SHOWING', price: '', original_price: '', images: [] });
   const [saving, setSaving] = useState(false);
 
   const [search, setSearch] = useState('');
@@ -264,7 +264,7 @@ export function AdminAccounts() {
 
   const openCreate = () => {
     setEditItem(null);
-    setForm({ category_id: '', title: '', description: '', username: '', password: '', email_acc: '', email_pass: '', server: '', level: '', rank_level: '', champions_count: '', skins_count: '', security_status: 'TRANG_THONG_THIN', price: '', original_price: '', images: [] });
+    setForm({ category_id: '', title: '', description: '', username: '', password: '', email_acc: '', email_pass: '', server: '', level: '', rank_level: '', champions_count: '', skins_count: '', security_status: 'TRANG_THONG_THIN', status: 'SHOWING', price: '', original_price: '', images: [] });
     setShowForm(true);
   };
 
@@ -290,6 +290,7 @@ export function AdminAccounts() {
       champions_count: acc.champions_count !== null && acc.champions_count !== undefined ? acc.champions_count : '',
       skins_count: acc.skins_count !== null && acc.skins_count !== undefined ? acc.skins_count : '',
       security_status: acc.security_status || 'TRANG_THONG_THIN',
+      status: acc.status || 'SHOWING',
       price: acc.price ? formatNumberString(acc.price) : '',
       original_price: acc.original_price ? formatNumberString(acc.original_price) : '',
       images: parsedImages
@@ -403,6 +404,9 @@ export function AdminAccounts() {
                           {acc.status === 'REJECTED' && (
                             <button className="btn btn-sm btn-success" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px 8px' }} onClick={() => handleStatusChange(acc.id, 'SHOWING')} title="Duyệt lại"><FiRefreshCw size={14} /></button>
                           )}
+                          {acc.status === 'SOLD' && (
+                            <button className="btn btn-sm btn-success" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px 8px' }} onClick={() => handleStatusChange(acc.id, 'SHOWING')} title="Mở bán lại"><FiRefreshCw size={14} /></button>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -490,6 +494,16 @@ export function AdminAccounts() {
                   <select className="form-control" value={form.security_status} onChange={e => setForm({...form, security_status: e.target.value})}>
                     <option value="TRANG_THONG_THIN">Trắng thông tin</option>
                     <option value="DINH_THONG_THIN">Dính thông tin (Có SĐT/Mail)</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Trạng thái bài đăng</label>
+                  <select className="form-control" value={form.status} onChange={e => setForm({...form, status: e.target.value})}>
+                    <option value="SHOWING">Đang bán (SHOWING)</option>
+                    <option value="PENDING_APPROVAL">Chờ duyệt (PENDING_APPROVAL)</option>
+                    <option value="HIDDEN">Đã ẩn (HIDDEN)</option>
+                    <option value="SOLD">Đã bán (SOLD)</option>
+                    <option value="REJECTED">Bị từ chối (REJECTED)</option>
                   </select>
                 </div>
               </div>
