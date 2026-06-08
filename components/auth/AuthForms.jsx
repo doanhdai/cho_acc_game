@@ -46,7 +46,7 @@ export function LoginPage() {
         });
         window.google.accounts.id.renderButton(
           document.getElementById('google-signin-btn'),
-          { theme: 'outline', size: 'large', width: '100%', text: 'signin_with' }
+          { theme: 'outline', size: 'large', width: 356, text: 'signin_with' }
         );
       } catch (err) {
         console.error('Lỗi cấu hình Google Sign-In:', err);
@@ -87,7 +87,7 @@ export function LoginPage() {
             });
             window.google.accounts.id.renderButton(
               document.getElementById('google-signin-btn'),
-              { theme: 'outline', size: 'large', width: '100%', text: 'signin_with' }
+              { theme: 'outline', size: 'large', width: 356, text: 'signin_with' }
             );
           } catch (err) {
             console.error('Lỗi khi load script Google Sign-In:', err);
@@ -123,6 +123,11 @@ export function LoginPage() {
           </div>
 
           <div style={{ marginBottom: 24 }}>
+            <style dangerouslySetInnerHTML={{ __html: `
+              #google-signin-btn > div, #google-signin-btn iframe {
+                width: 100% !important;
+              }
+            ` }} />
             <div id="google-signin-btn" style={{ width: '100%', minHeight: 40 }} />
           </div>
 
@@ -177,7 +182,7 @@ export function RegisterPage() {
         });
         window.google.accounts.id.renderButton(
           document.getElementById('google-register-btn'),
-          { theme: 'outline', size: 'large', width: '100%', text: 'signup_with' }
+          { theme: 'outline', size: 'large', width: 396, text: 'signup_with' }
         );
       } catch (err) {
         console.error('Lỗi cấu hình Google Sign-In ở trang Register:', err);
@@ -214,7 +219,7 @@ export function RegisterPage() {
             });
             window.google.accounts.id.renderButton(
               document.getElementById('google-register-btn'),
-              { theme: 'outline', size: 'large', width: '100%', text: 'signup_with' }
+              { theme: 'outline', size: 'large', width: 396, text: 'signup_with' }
             );
           } catch (err) {
             console.error('Lỗi khi load script Google Sign-In ở trang Register:', err);
@@ -261,6 +266,11 @@ export function RegisterPage() {
           </div>
 
           <div style={{ marginBottom: 24 }}>
+            <style dangerouslySetInnerHTML={{ __html: `
+              #google-register-btn > div, #google-register-btn iframe {
+                width: 100% !important;
+              }
+            ` }} />
             <div id="google-register-btn" style={{ width: '100%', minHeight: 40 }} />
           </div>
 
