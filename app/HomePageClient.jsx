@@ -212,7 +212,7 @@ export default function HomePage() {
 
               {/* Skin selection */}
               <div style={{ position: 'relative' }}>
-                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 6, display: 'block' }}>Trang phục (Skin)</label>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 6, display: 'block' }}>Trang phục (Chọn các skin bạn cần)</label>
                 <input 
                   type="text"
                   placeholder="Chọn hoặc gõ tên skin..." 

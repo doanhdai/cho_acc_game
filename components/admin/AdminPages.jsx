@@ -456,35 +456,6 @@ export function AdminAccounts() {
                   <label className="form-label">Số skin</label>
                   <input className="form-control" type="number" value={form.skins_count} onChange={e => setForm({...form, skins_count: e.target.value})} />
                 </div>
-                <div className="form-group" style={{ gridColumn: '1/-1' }}>
-                  <label className="form-label">Mô tả</label>
-                  <textarea className="form-control" rows={3} value={form.description} onChange={e => setForm({...form, description: e.target.value})} />
-                </div>
-                <div className="form-group" style={{ gridColumn: '1/-1' }}>
-                  <label className="form-label">URL Ảnh (mỗi dòng 1 URL)</label>
-                  <textarea className="form-control" rows={2} value={Array.isArray(form.images) ? form.images.join('\n') : ''} onChange={e => setForm({...form, images: e.target.value.split('\n').filter(l => l.trim())})} placeholder="https://..." />
-                </div>
-
-                {/* Credentials & Security Section */}
-                <div style={{ gridColumn: '1/-1', borderTop: '1px solid var(--border)', paddingTop: 12, marginTop: 12 }}>
-                  <h4 style={{ fontSize: 13, fontWeight: 700, marginBottom: 12, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Thông Tin Tài Khoản & Bảo Mật</h4>
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Tài khoản Game</label>
-                  <input className="form-control" value={form.username} onChange={e => setForm({...form, username: e.target.value})} placeholder="Tên đăng nhập game" />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Mật khẩu Game</label>
-                  <input className="form-control" value={form.password} onChange={e => setForm({...form, password: e.target.value})} placeholder="Mật khẩu game" />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Email liên kết</label>
-                  <input className="form-control" value={form.email_acc} onChange={e => setForm({...form, email_acc: e.target.value})} placeholder="abc@gmail.com" />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Mật khẩu Email</label>
-                  <input className="form-control" value={form.email_pass} onChange={e => setForm({...form, email_pass: e.target.value})} placeholder="Mật khẩu email" />
-                </div>
                 <div className="form-group">
                   <label className="form-label">Máy chủ (Server)</label>
                   <input className="form-control" value={form.server} onChange={e => setForm({...form, server: e.target.value})} placeholder="VD: Mặt Trời" />
@@ -496,7 +467,7 @@ export function AdminAccounts() {
                     <option value="DINH_THONG_THIN">Dính thông tin (Có SĐT/Mail)</option>
                   </select>
                 </div>
-                <div className="form-group">
+                <div className="form-group" style={{ gridColumn: '1/-1' }}>
                   <label className="form-label">Trạng thái bài đăng</label>
                   <select className="form-control" value={form.status} onChange={e => setForm({...form, status: e.target.value})}>
                     <option value="SHOWING">Đang bán (SHOWING)</option>
@@ -506,6 +477,16 @@ export function AdminAccounts() {
                     <option value="REJECTED">Bị từ chối (REJECTED)</option>
                   </select>
                 </div>
+                <div className="form-group" style={{ gridColumn: '1/-1' }}>
+                  <label className="form-label">Mô tả</label>
+                  <textarea className="form-control" rows={3} value={form.description} onChange={e => setForm({...form, description: e.target.value})} />
+                </div>
+                <div className="form-group" style={{ gridColumn: '1/-1' }}>
+                  <label className="form-label">URL Ảnh (mỗi dòng 1 URL)</label>
+                  <textarea className="form-control" rows={2} value={Array.isArray(form.images) ? form.images.join('\n') : ''} onChange={e => setForm({...form, images: e.target.value.split('\n').filter(l => l.trim())})} placeholder="https://..." />
+                </div>
+
+
               </div>
               <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 16 }}>
                 <button type="button" className="btn btn-outline" onClick={() => setShowForm(false)}>Hủy</button>
