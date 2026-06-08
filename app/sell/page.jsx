@@ -46,6 +46,38 @@ export default function SellPage() {
     }
   }, []);
 
+  // Restore form state if coming back from profile update
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const backup = sessionStorage.getItem('sell_form_backup');
+      if (backup) {
+        try {
+          const parsed = JSON.parse(backup);
+          if (!isEditMode || parsed.editId === editId) {
+            if (parsed.categoryId) setCategoryId(parsed.categoryId);
+            if (parsed.title) setTitle(parsed.title);
+            if (parsed.description) setDescription(parsed.description);
+            if (parsed.price) setPrice(parsed.price);
+            if (parsed.originalPrice) setOriginalPrice(parsed.originalPrice);
+            if (parsed.server) setServer(parsed.server);
+            if (parsed.level) setLevel(parsed.level);
+            if (parsed.rankLevel) setRankLevel(parsed.rankLevel);
+            if (parsed.championsCount) setChampionsCount(parsed.championsCount);
+            if (parsed.skinsCount) setSkinsCount(parsed.skinsCount);
+            if (parsed.securityStatus) setSecurityStatus(parsed.securityStatus);
+            if (parsed.images) setImages(parsed.images);
+            if (parsed.selectedSkins) setSelectedSkins(parsed.selectedSkins);
+            toast.success('Đã khôi phục thông tin tin đăng bạn đang nhập dở!');
+          }
+        } catch (e) {
+          console.error('Lỗi khôi phục form backup:', e);
+        } finally {
+          sessionStorage.removeItem('sell_form_backup');
+        }
+      }
+    }
+  }, [isEditMode, editId]);
+
   // Form States
   const [categoryId, setCategoryId] = useState('');
   const [title, setTitle] = useState('');
@@ -210,34 +242,30 @@ export default function SellPage() {
     if (submitting) return;
 
     // PRD Rule 2: Zalo phone required
-    const isPhoneStored = user.phone_zalo && /^0[0-9]{9}$/.test(user.phone_zalo);
+    const isPhoneStored = user.phone_zalo && /^0[0-9]{9}$/.test(user.phone_zalo) && user.phone_zalo !== '0000000000';
     if (!isPhoneStored) {
-      if (!phoneZaloInput || !/^0[0-9]{9}$/.test(phoneZaloInput)) {
-        toast.error('Vui lòng nhập số điện thoại Zalo hợp lệ (10 chữ số, bắt đầu bằng 0)!');
-        return;
+      const sellFormState = {
+        editId,
+        categoryId,
+        title,
+        description,
+        price,
+        originalPrice,
+        server,
+        level,
+        rankLevel,
+        championsCount,
+        skinsCount,
+        securityStatus,
+        images,
+        selectedSkins
+      };
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('sell_form_backup', JSON.stringify(sellFormState));
       }
-      
-      // Update profile first
-      try {
-        setSubmitting(true);
-        const updateRes = await userAPI.updateProfile({
-          full_name: user.fullName || user.full_name || '',
-          email: user.email || '',
-          phone_zalo: phoneZaloInput,
-          avatar: user.avatar || ''
-        });
-        if (updateRes.data.success) {
-          updateUser(updateRes.data.user);
-        } else {
-          toast.error(updateRes.data.message || 'Lỗi khi cập nhật số điện thoại Zalo');
-          setSubmitting(false);
-          return;
-        }
-      } catch (err) {
-        toast.error(err.response?.data?.message || 'Không thể cập nhật số điện thoại Zalo. Vui lòng thử lại.');
-        setSubmitting(false);
-        return;
-      }
+      toast.error('Vui lòng cập nhật số điện thoại Zalo hợp lệ trước khi đăng tin!');
+      router.push('/profile?redirect=sell');
+      return;
     }
 
     if (calculatedFee > 0 && Number(user.balance) < calculatedFee) {
@@ -311,7 +339,7 @@ export default function SellPage() {
   const calculatedFee = (!isEditMode || isRejected) ? Math.round(cleanPrice * (feePercent / 100)) : 0;
   
   const hasInsufficientBalance = user && Number(user.balance) < calculatedFee;
-  const hasMissingZalo = user && (!user.phone_zalo || !/^0[0-9]{9}$/.test(user.phone_zalo));
+  const hasMissingZalo = user && (!user.phone_zalo || !/^0[0-9]{9}$/.test(user.phone_zalo) || user.phone_zalo === '0000000000');
 
   return (
     <div className="page-container" style={{ background: 'var(--bg-dark)' }}>
@@ -347,7 +375,53 @@ export default function SellPage() {
           </div>
         )}
 
-        {/* Missing Zalo check removed - handled via inline form input below */}
+        {hasMissingZalo && (
+          <div style={{
+            background: 'rgba(217, 119, 6, 0.1)',
+            border: '1px solid rgba(217, 119, 6, 0.3)',
+            borderRadius: 'var(--radius)',
+            padding: '16px 20px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 16,
+            marginBottom: 24,
+            boxShadow: '0 2px 10px rgba(217,119,6,0.05)'
+          }}>
+            <FiAlertCircle size={24} style={{ color: 'var(--gold)', flexShrink: 0 }} />
+            <div style={{ flex: 1, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+              <strong>Chưa cập nhật số điện thoại Zalo!</strong> Bạn cần có số điện thoại Zalo hợp lệ để người mua liên hệ. Khi bạn bấm <strong>Đăng Tin</strong>, hệ thống sẽ chuyển hướng bạn sang trang cập nhật thông tin và lưu tạm các dữ liệu bạn đã nhập.
+            </div>
+            <button 
+              type="button" 
+              className="btn btn-gold btn-sm" 
+              onClick={() => {
+                const sellFormState = {
+                  editId,
+                  categoryId,
+                  title,
+                  description,
+                  price,
+                  originalPrice,
+                  server,
+                  level,
+                  rankLevel,
+                  championsCount,
+                  skinsCount,
+                  securityStatus,
+                  images,
+                  selectedSkins
+                };
+                if (typeof window !== 'undefined') {
+                  sessionStorage.setItem('sell_form_backup', JSON.stringify(sellFormState));
+                }
+                router.push('/profile?redirect=sell');
+              }} 
+              style={{ borderRadius: 6, whiteSpace: 'nowrap' }}
+            >
+              Cập nhật ngay
+            </button>
+          </div>
+        )}
 
         {/* Side-by-side Grid Layout */}
         <div className="sell-grid">
@@ -419,23 +493,6 @@ export default function SellPage() {
                     </div>
                   </div>
                 </div>
-
-                {hasMissingZalo && (
-                  <div style={{ marginTop: 8 }}>
-                    <label className="form-label" style={{ fontWeight: 600, color: 'var(--primary)' }}>Số điện thoại Zalo liên hệ *</label>
-                    <input
-                      className="form-control"
-                      placeholder="Nhập số điện thoại Zalo (ví dụ: 0901234567)"
-                      value={phoneZaloInput}
-                      onChange={e => setPhoneZaloInput(e.target.value)}
-                      required
-                      style={{ borderRadius: 'var(--radius)', border: '1px solid var(--primary)' }}
-                    />
-                    <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>
-                      Số điện thoại này sẽ được lưu vào tài khoản của bạn để người mua có thể liên hệ trực tiếp qua Zalo.
-                    </p>
-                  </div>
-                )}
               </div>
             </div>
 

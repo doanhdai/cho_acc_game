@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { userAPI, accountAPI } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { Spinner } from '@/components/common';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { 
   FiUser, FiMail, FiPhone, FiImage, FiSave, FiLock, 
@@ -11,9 +11,11 @@ import {
 } from 'react-icons/fi';
 import { GiDiamondHard } from 'react-icons/gi';
 
-export default function ProfilePage() {
+function ProfileContent() {
   const { user, updateUser } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect');
   const [activeTab, setActiveTab] = useState('info');
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -291,14 +293,37 @@ export default function ProfilePage() {
                       </div>
                     </div>
 
-                    <button 
-                      type="submit" 
-                      className="btn btn-primary" 
-                      style={{ padding: '12px 24px', borderRadius: 'var(--radius)', fontSize: 13 }}
-                      disabled={loading}
-                    >
-                      {loading ? 'Đang lưu...' : <><FiSave /> Lưu Thay Đổi</>}
-                    </button>
+                    <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginTop: 8 }}>
+                      <button 
+                        type="submit" 
+                        className="btn btn-primary" 
+                        style={{ padding: '12px 24px', borderRadius: 'var(--radius)', fontSize: 13 }}
+                        disabled={loading}
+                      >
+                        {loading ? 'Đang lưu...' : <><FiSave /> Lưu Thay Đổi</>}
+                      </button>
+
+                      {redirect === 'sell' && user.phone_zalo && /^0[0-9]{9}$/.test(user.phone_zalo) && user.phone_zalo !== '0000000000' && (
+                        <button
+                          type="button"
+                          className="btn"
+                          style={{ 
+                            padding: '12px 24px', 
+                            borderRadius: 'var(--radius)', 
+                            fontSize: 13, 
+                            fontWeight: 700,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 8,
+                            background: '#10B981',
+                            color: '#fff'
+                          }}
+                          onClick={() => router.push('/sell')}
+                        >
+                          Quay Lại Trang Đăng Tin
+                        </button>
+                      )}
+                    </div>
                   </form>
                 </div>
               )}
@@ -623,5 +648,13 @@ export default function ProfilePage() {
         }
       `}} />
     </div>
+  );
+}
+
+export default function ProfilePage() {
+  return (
+    <React.Suspense fallback={<Spinner />}>
+      <ProfileContent />
+    </React.Suspense>
   );
 }

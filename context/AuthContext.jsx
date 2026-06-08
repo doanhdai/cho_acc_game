@@ -11,32 +11,51 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      authAPI.me()
-        .then(res => setUser(res.data.user))
-        .catch(() => localStorage.removeItem('token'))
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
+    authAPI.me()
+      .then(res => setUser(res.data.user))
+      .catch(() => {
+        if (token) {
+          localStorage.removeItem('token');
+        }
+        setUser(null);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const login = async (data) => {
     const res = await authAPI.login(data);
-    localStorage.setItem('token', res.data.token);
+    if (res.data.token) {
+      localStorage.setItem('token', res.data.token);
+    }
+    setUser(res.data.user);
+    return res.data;
+  };
+
+  const loginWithGoogle = async (googleToken) => {
+    const res = await authAPI.googleLogin(googleToken);
+    if (res.data.token) {
+      localStorage.setItem('token', res.data.token);
+    }
     setUser(res.data.user);
     return res.data;
   };
 
   const register = async (data) => {
     const res = await authAPI.register(data);
-    localStorage.setItem('token', res.data.token);
+    if (res.data.token) {
+      localStorage.setItem('token', res.data.token);
+    }
     const me = await authAPI.me();
     setUser(me.data.user);
     return res.data;
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await authAPI.logout();
+    } catch (e) {
+      console.error(e);
+    }
     localStorage.removeItem('token');
     setUser(null);
   };
@@ -44,20 +63,17 @@ export const AuthProvider = ({ children }) => {
   const updateUser = (data) => setUser(prev => ({ ...prev, ...data }));
 
   const reloadUser = async () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const res = await authAPI.me();
-        setUser(res.data.user);
-      } catch (e) {
-        localStorage.removeItem('token');
-        setUser(null);
-      }
+    try {
+      const res = await authAPI.me();
+      setUser(res.data.user);
+    } catch (e) {
+      localStorage.removeItem('token');
+      setUser(null);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, updateUser, reloadUser }}>
+    <AuthContext.Provider value={{ user, loading, login, loginWithGoogle, register, logout, updateUser, reloadUser }}>
       {children}
     </AuthContext.Provider>
   );

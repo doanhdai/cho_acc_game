@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import toast from 'react-hot-toast';
@@ -10,10 +11,48 @@ import { FiKey, FiUserPlus } from 'react-icons/fi';
 const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL || '/logo_lienquan.png';
 
 export function LoginPage() {
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const router = useRouter();
   const [form, setForm] = useState({ username: '', password: '' });
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  const handleGoogleLogin = async (response) => {
+    if (googleLoading) return;
+    setGoogleLoading(true);
+    const toastId = toast.loading('Đang đăng nhập bằng Google...');
+    try {
+      const result = await loginWithGoogle(response.credential);
+      toast.success('Đăng nhập bằng Google thành công!', { id: toastId });
+      if (result.user.role === 'admin') {
+        router.push('/admin');
+      } else {
+        router.push('/');
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Đăng nhập Google thất bại', { id: toastId });
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.google) {
+      try {
+        const client_id = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+        window.google.accounts.id.initialize({
+          client_id: client_id,
+          callback: handleGoogleLogin,
+        });
+        window.google.accounts.id.renderButton(
+          document.getElementById('google-signin-btn'),
+          { theme: 'outline', size: 'large', width: '100%', text: 'signin_with' }
+        );
+      } catch (err) {
+        console.error('Lỗi cấu hình Google Sign-In:', err);
+      }
+    }
+  }, [googleLoading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +75,25 @@ export function LoginPage() {
 
   return (
     <div style={{ minHeight: 'calc(100vh - 64px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+      <Script 
+        src="https://accounts.google.com/gsi/client" 
+        strategy="afterInteractive"
+        onLoad={() => {
+          try {
+            const client_id = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+            window.google.accounts.id.initialize({
+              client_id: client_id,
+              callback: handleGoogleLogin,
+            });
+            window.google.accounts.id.renderButton(
+              document.getElementById('google-signin-btn'),
+              { theme: 'outline', size: 'large', width: '100%', text: 'signin_with' }
+            );
+          } catch (err) {
+            console.error('Lỗi khi load script Google Sign-In:', err);
+          }
+        }}
+      />
       <div style={{ width: '100%', maxWidth: 420 }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <div style={{ marginBottom: 16 }}>
@@ -58,6 +116,16 @@ export function LoginPage() {
               {loading ? 'Đang đăng nhập...' : <><FiKey style={{ marginRight: 8 }} /> Đăng Nhập</>}
             </button>
           </form>
+
+          <div style={{ position: 'relative', margin: '24px 0', textAlign: 'center' }}>
+            <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: 1, background: 'var(--border)' }} />
+            <span style={{ position: 'relative', fontSize: 12, color: 'var(--text-muted)', background: 'var(--bg-card)', padding: '0 12px' }}>Hoặc đăng nhập bằng</span>
+          </div>
+
+          <div style={{ marginBottom: 24 }}>
+            <div id="google-signin-btn" style={{ width: '100%', minHeight: 40 }} />
+          </div>
+
           <div className="divider" />
           <div style={{ textAlign: 'center', fontSize: 14, color: 'var(--text-muted)' }}>
             Chưa có tài khoản? <Link href="/register" style={{ color: 'var(--primary)', fontWeight: 700 }}>Đăng ký ngay</Link>
@@ -74,10 +142,48 @@ export function LoginPage() {
 }
 
 export function RegisterPage() {
-  const { register } = useAuth();
+  const { register, loginWithGoogle } = useAuth();
   const router = useRouter();
   const [form, setForm] = useState({ username: '', email: '', password: '', full_name: '', phone_zalo: '' });
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  const handleGoogleLogin = async (response) => {
+    if (googleLoading) return;
+    setGoogleLoading(true);
+    const toastId = toast.loading('Đang đăng ký/đăng nhập bằng Google...');
+    try {
+      const result = await loginWithGoogle(response.credential);
+      toast.success('Đăng nhập bằng Google thành công!', { id: toastId });
+      if (result.user.role === 'admin') {
+        router.push('/admin');
+      } else {
+        router.push('/');
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Đăng nhập Google thất bại', { id: toastId });
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.google) {
+      try {
+        const client_id = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+        window.google.accounts.id.initialize({
+          client_id: client_id,
+          callback: handleGoogleLogin,
+        });
+        window.google.accounts.id.renderButton(
+          document.getElementById('google-register-btn'),
+          { theme: 'outline', size: 'large', width: '100%', text: 'signup_with' }
+        );
+      } catch (err) {
+        console.error('Lỗi cấu hình Google Sign-In ở trang Register:', err);
+      }
+    }
+  }, [googleLoading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,11 +202,27 @@ export function RegisterPage() {
 
   return (
     <div style={{ minHeight: 'calc(100vh - 64px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+      <Script 
+        src="https://accounts.google.com/gsi/client" 
+        strategy="afterInteractive"
+        onLoad={() => {
+          try {
+            const client_id = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+            window.google.accounts.id.initialize({
+              client_id: client_id,
+              callback: handleGoogleLogin,
+            });
+            window.google.accounts.id.renderButton(
+              document.getElementById('google-register-btn'),
+              { theme: 'outline', size: 'large', width: '100%', text: 'signup_with' }
+            );
+          } catch (err) {
+            console.error('Lỗi khi load script Google Sign-In ở trang Register:', err);
+          }
+        }}
+      />
       <div style={{ width: '100%', maxWidth: 460 }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ marginBottom: 16 }}>
-            <Link href="/"><img src={LOGO_URL} alt="Logo" style={{ width: 80, height: 80, objectFit: 'contain' }} /></Link>
-          </div>
           <h1 style={{ fontSize: 28, fontWeight: 900, marginBottom: 6 }}>Đăng Ký</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: 14 }}>Tạo tài khoản để bắt đầu mua acc</p>
         </div>
@@ -132,6 +254,16 @@ export function RegisterPage() {
               {loading ? 'Đang đăng ký...' : <><FiUserPlus style={{ marginRight: 8 }} /> Đăng Ký</>}
             </button>
           </form>
+
+          <div style={{ position: 'relative', margin: '24px 0', textAlign: 'center' }}>
+            <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: 1, background: 'var(--border)' }} />
+            <span style={{ position: 'relative', fontSize: 12, color: 'var(--text-muted)', background: 'var(--bg-card)', padding: '0 12px' }}>Hoặc đăng ký bằng</span>
+          </div>
+
+          <div style={{ marginBottom: 24 }}>
+            <div id="google-register-btn" style={{ width: '100%', minHeight: 40 }} />
+          </div>
+
           <div className="divider" />
           <div style={{ textAlign: 'center', fontSize: 14, color: 'var(--text-muted)' }}>
             Đã có tài khoản? <Link href="/login" style={{ color: 'var(--primary)', fontWeight: 700 }}>Đăng nhập</Link>

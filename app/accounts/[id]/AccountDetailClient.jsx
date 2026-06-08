@@ -89,6 +89,7 @@ export default function AccountDetailPage() {
                   src={displayImages[activeImgIndex]}
                   alt={account.title}
                   style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                  loading="lazy"
                 />
 
                 {/* Status Badges Overlay */}
@@ -170,7 +171,7 @@ export default function AccountDetailPage() {
                         if (activeImgIndex !== idx) e.currentTarget.style.opacity = '0.75';
                       }}
                     >
-                      <img src={img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img src={img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                     </div>
                   ))}
                 </div>

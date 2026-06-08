@@ -145,7 +145,7 @@ export default function HomePage() {
     <div>
       {/* Banner */}
       <section style={{ width: '100%' }}>
-        <img src="/banner.png" alt="Shop Acc Game Banner" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        <img src="/banner.png" alt="Shop Acc Game Banner" style={{ width: '100%', height: 'auto', display: 'block' }} loading="lazy" />
       </section>
 
 
@@ -254,7 +254,7 @@ export default function HomePage() {
                         onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-input)'}
                         onMouseLeave={e => e.currentTarget.style.background = 'none'}
                       >
-                        <img src={skin.image_url || skin.imageUrl} alt="" style={{ width: 32, height: 32, objectFit: 'cover', borderRadius: 3 }} />
+                        <img src={skin.image_url || skin.imageUrl} alt="" style={{ width: 32, height: 32, objectFit: 'cover', borderRadius: 3 }} loading="lazy" />
                         <span style={{ fontSize: 12, fontWeight: 600 }}>{skin.champion_name || skin.championName} - {skin.skin_name || skin.skinName}</span>
                       </div>
                     ))}
