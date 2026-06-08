@@ -2,6 +2,7 @@ import '@/styles/globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { Toaster } from 'react-hot-toast';
 import ClientHeaderFooter from '@/components/layout/ClientHeaderFooter';
+import { Analytics } from '@vercel/analytics/react';
 
 const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Shop Acc Game';
 
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
           <ClientHeaderFooter>
             {children}
           </ClientHeaderFooter>
+          <Analytics />
           <Toaster
             position="top-right"
             containerStyle={{ zIndex: 99999 }}
