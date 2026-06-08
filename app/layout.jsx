@@ -9,25 +9,25 @@ const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Shop Acc Game';
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://choaccgame.store'),
   title: {
-    default: `${SITE_NAME} - Sàn Giao Dịch Acc Game Uy Tín`,
+    default: `${SITE_NAME} - Sàn Mua Bán Acc Liên Quân Uy Tín`,
     template: `%s | ${SITE_NAME}`,
   },
-  description: 'Sàn giao dịch tài khoản game uy tín số 1 Việt Nam. Mua bán acc Liên Quân, LOL, PUBG và nhiều game khác. Cam kết chất lượng, hỗ trợ 24/7.',
-  keywords: ['mua bán acc game', 'shop acc liên quân', 'acc game giá rẻ', 'mua acc liên quân', 'shop acc uy tín'],
-  authors: [{ name: 'Shop Acc Game Admin' }],
-  creator: 'Shop Acc Game',
+  description: 'Sàn giao dịch mua bán tài khoản Liên Quân Mobile uy tín số 1 Việt Nam. Cam kết chất lượng, an toàn, hỗ trợ 24/7.',
+  keywords: ['mua bán acc liên quân', 'shop acc liên quân', 'acc liên quân giá rẻ', 'mua acc liên quân uy tín', 'chợ acc liên quân'],
+  authors: [{ name: 'Shop Acc Liên Quân Admin' }],
+  creator: 'Shop Acc Liên Quân',
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
     siteName: SITE_NAME,
-    title: `${SITE_NAME} - Sàn Giao Dịch Acc Game Uy Tín`,
-    description: 'Sàn giao dịch tài khoản game uy tín số 1 Việt Nam. Mua bán acc Liên Quân, LOL, PUBG và nhiều game khác.',
+    title: `${SITE_NAME} - Sàn Mua Bán Acc Liên Quân Uy Tín`,
+    description: 'Sàn giao dịch mua bán tài khoản Liên Quân Mobile uy tín số 1 Việt Nam. Cam kết chất lượng, an toàn, hỗ trợ 24/7.',
     images: ['/banner.png'],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_NAME} - Sàn Giao Dịch Acc Game Uy Tín`,
-    description: 'Sàn giao dịch tài khoản game uy tín số 1 Việt Nam.',
+    title: `${SITE_NAME} - Sàn Mua Bán Acc Liên Quân Uy Tín`,
+    description: 'Sàn giao dịch mua bán tài khoản Liên Quân Mobile uy tín số 1 Việt Nam.',
     images: ['/banner.png'],
   },
   alternates: {
@@ -35,6 +35,8 @@ export const metadata = {
   },
   icons: {
     icon: '/logo_lienquan.png',
+    shortcut: '/logo_lienquan.png',
+    apple: '/logo_lienquan.png',
   },
 };
 
