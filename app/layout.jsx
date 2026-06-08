@@ -7,7 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Shop Acc Game';
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://choaccgame.store'),
   title: {
     default: `${SITE_NAME} - Sàn Giao Dịch Acc Game Uy Tín`,
     template: `%s | ${SITE_NAME}`,
